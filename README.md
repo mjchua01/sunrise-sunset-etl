@@ -1,12 +1,12 @@
-# 🌅 Sunrise & Sunset ETL Pipeline + Dashboard
+# Sunrise & Sunset ETL Pipeline + Dashboard
 
-## 📌 Project Overview
+## Project Overview
 
 This project is an ETL (Extract, Transform, Load) pipeline that retrieves sunrise and sunset data for a user-specified city, processes and transforms the data, validates data quality, and loads the final results into a PostgreSQL database.
 
 It also prepares the data for use in an interactive Dash dashboard for outdoor planning and daylight scheduling.
 
-## 🎯 Objectives
+## Objectives
 
 The application:
 - Displays sunrise and sunset times for a city
@@ -15,7 +15,7 @@ The application:
 - Automatically selects today’s or next day’s cycle depending on time of day
 - Supports outdoor planning and daylight-dependent scheduling
 
-## 🧱 Project Structure
+## Project Structure
 
 Summer 2026/
 │
@@ -28,7 +28,7 @@ Summer 2026/
 ├── .gitignore         # Files excluded from version control
 └── README.md
 
-## 🔄 ETL Pipeline
+## ETL Pipeline
 
 ### Extract
 - Retrieves latitude/longitude using OpenStreetMap Geocoding API  
@@ -69,7 +69,7 @@ CREATE DATABASE sunrise_db;
 ### 4. Run project
 python main.py
 
-## 📊 Example Output
+## Example Output
 
 Enter a city: Clarksville, IN
 
@@ -88,14 +88,14 @@ FINAL DATA:
   "time_remaining": "2h 19m"
 }
 
-## 🧪 Data Quality Checks
+## Data Quality Checks
 
 - Null value checks  
 - Schema validation  
 - Format validation  
 - Logical checks  
 
-## 🚀 Notes
+## Notes
 
 - Automatically selects correct daylight cycle  
 - Timezone derived from coordinates  
