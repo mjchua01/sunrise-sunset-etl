@@ -62,10 +62,8 @@ pip install dash pandas plotly sqlalchemy psycopg2-binary timezonefinder pytz
 
 ## Screenshots / Demo
 
-Add screenshots in a `/screenshots` folder:
+<img width="1908" height="473" alt="image" src="https://github.com/user-attachments/assets/ab9d85d1-e487-4688-b832-eb0ebd5f1e5f" />
 
-- dashboard_overview.png
-- charts.png
 
 ---
 
