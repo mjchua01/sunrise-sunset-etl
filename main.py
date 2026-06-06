@@ -6,9 +6,6 @@ from validation import Validator
 
 def main():
 
-    # ----------------------------
-    # INIT CLASSES
-    # ----------------------------
     extractor = Extractor()
     transformer = Transformer()
     loader = Loader()
@@ -16,70 +13,37 @@ def main():
 
     city = input("Enter a city: ")
 
-    # ----------------------------
-    # EXTRACT
-    # ----------------------------
-    raw_data = extractor.extract_all(city)
+    raw = extractor.extract_all(city)
 
-    if not raw_data:
-        print("❌ Extraction failed")
+    if not raw:
+        print("❌ Extract failed")
         return
 
-    print("✅ Extract successful")
+    transformed = transformer.transform(raw)
 
-    # ----------------------------
-    # VALIDATE API RESPONSE (IMPORTANT FIRST CHECK)
-    # ----------------------------
-    if not validator.check_api_response(raw_data):
-        print("❌ API validation failed")
+    if not transformed:
+        print("❌ Transform failed")
         return
 
-    # ----------------------------
-    # TRANSFORM
-    # ----------------------------
-    transformed_data = transformer.transform(raw_data)
+    print("\n📊 FINAL DATA")
+    print(transformed)
 
-    if not transformed_data:
-        print("❌ Transformation failed")
+    if not validator.check_nulls(transformed):
+        print("❌ Validation failed")
         return
 
-    print("✅ Transform successful")
-
-    print("\n📊 FINAL DATA:")
-    print(transformed_data)
-
-    # ----------------------------
-    # VALIDATION PIPELINE (FULL DATA QUALITY FRAMEWORK)
-    # ----------------------------
-
-    # 1. Null checks
-    if not validator.check_nulls(transformed_data):
-        print("❌ Validation failed: null check")
+    if not validator.check_format(transformed):
+        print("❌ Validation failed")
         return
 
-    # 2. Schema / type checks
-    if not validator.check_schema(transformed_data):
-        print("❌ Validation failed: schema check")
-        return
-
-    # 3. Range validation
-    if not validator.check_range(transformed_data):
-        print("❌ Validation failed: range check")
-        return
-
-    # 4. Logical validation
-    if not validator.check_sun_logic(transformed_data):
-        print("❌ Validation failed: logic check")
+    if not validator.check_logic(transformed):
+        print("❌ Validation failed")
         return
 
     print("✅ All validations passed")
 
-    # ----------------------------
-    # LOAD (ONLY IF VALID)
-    # ----------------------------
-    loader.load_data(transformed_data)
-
-    print("✅ Load successful")
+    loader.load_data(transformed)
+    print("✅ Pipeline complete")
 
 
 if __name__ == "__main__":

@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, text
 import pandas as pd
 import logging
 
@@ -7,43 +7,28 @@ class Loader:
 
     def __init__(self):
 
-        # ----------------------------------------
-        # UPDATE THESE WITH YOUR POSTGRES INFO
-        # ----------------------------------------
-        username = "postgres"
-        password = "newpassword"
-        host = "localhost"
-        port = "5432"
-        database = "sunrise_db"
-
-        # SQLAlchemy connection string
         self.engine = create_engine(
-            f"postgresql+psycopg2://{username}:{password}@{host}:{port}/{database}"
+            "postgresql+psycopg2://postgres:newpassword@localhost:5432/sunrise_db"
         )
 
-    # -------------------------------------------------
-    # LOAD DATA INTO POSTGRES
-    # -------------------------------------------------
     def load_data(self, transformed_data):
 
         try:
-
-            # Convert dictionary -> DataFrame
             df = pd.DataFrame([transformed_data])
 
-            # Load into PostgreSQL
+            # 🔥 FIXED SQLAlchemy 2.0 SYNTAX
+            with self.engine.begin() as conn:
+                conn.execute(text("DELETE FROM sun_cycle"))
+
             df.to_sql(
-                name="sun_cycle",
-                con=self.engine,
+                "sun_cycle",
+                self.engine,
                 if_exists="append",
                 index=False
             )
 
-            logging.info("Data loaded successfully")
-
-            print("\n✅ Data loaded into PostgreSQL")
+            print("✅ Load successful")
 
         except Exception as e:
-
-            logging.error(f"Load error: {e}")
-            print(f"\n❌ Load failed: {e}")
+            logging.error(e)
+            print("❌ Load failed")
