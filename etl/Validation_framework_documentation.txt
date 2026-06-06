@@ -1,0 +1,61 @@
+# 🧪 Validation Framework Documentation
+
+## Overview
+
+This project includes a validation framework to ensure the transformed ETL output is complete, correctly formatted, and logically consistent before loading into PostgreSQL. These checks help prevent bad or incomplete data from entering the database.
+
+---
+
+## 1. Null Value Check
+
+### What it checks:
+Ensures all required fields exist and are not null:
+- city
+- sunrise
+- sunset
+- daylight_duration
+- next_event
+- time_remaining
+
+### Why it matters:
+Missing values can break the dashboard, cause incorrect calculations, or lead to database inconsistencies.
+
+### What happens if it fails:
+The pipeline stops immediately and the record is not loaded into PostgreSQL.
+
+---
+
+## 2. Format Validation Check
+
+### What it checks:
+Ensures that computed fields follow expected formatting rules, such as:
+- daylight_duration contains a valid time format (e.g., "14h 36m")
+- time_remaining is readable and not empty
+
+### Why it matters:
+The dashboard depends on consistent formatting for display and user interpretation.
+
+### What happens if it fails:
+The record is rejected and loading into PostgreSQL is skipped.
+
+---
+
+## 3. Logical Consistency Check
+
+### What it checks:
+Ensures internal logical consistency such as:
+- sunrise occurs before sunset
+- time_remaining is not negative
+- next_event is a valid event type (sunrise, sunset, first_light, last_light)
+
+### Why it matters:
+Even if data is technically present, incorrect logical relationships would produce misleading results.
+
+### What happens if it fails:
+The dataset is considered invalid and is not passed to the load stage.
+
+---
+
+## Summary
+
+The validation layer acts as a gatekeeper between transformation and loading. It ensures that only clean, correctly structured, and logically valid data enters the PostgreSQL database, improving reliability and preventing downstream errors in the dashboard.
