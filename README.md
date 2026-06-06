@@ -62,7 +62,7 @@ pip install dash pandas plotly sqlalchemy psycopg2-binary timezonefinder pytz
 
 ## Screenshots / Demo
 
-<img width="1908" height="473" alt="image" src="https://github.com/user-attachments/assets/ab9d85d1-e487-4688-b832-eb0ebd5f1e5f" />
+<img width="1918" height="478" alt="image" src="https://github.com/user-attachments/assets/45aaa110-fc78-48b1-82b7-da232c089896" />
 
 <img width="1918" height="1027" alt="image" src="https://github.com/user-attachments/assets/d4449d9d-4b66-4940-88c2-2ebd6cb9f525" />
 
