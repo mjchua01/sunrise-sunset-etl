@@ -1,0 +1,27 @@
+User (CLI or Dash)
+        ↓
+City Input
+        ↓
+Validation Layer
+        ↓
+Geocoding API
+        ↓
+Latitude / Longitude
+        ↓
+Sunrise-Sunset API
+        ↓
+Raw Solar Data
+        ↓
+ETL Pipeline
+   ├── Extract
+   ├── Transform
+   └── Load
+        ↓
+PostgreSQL Database
+   ├── location
+   ├── sun_data
+   ├── daylight_metrics
+   ├── api_request
+   └── timezone
+        ↓
+Dash Dashboard / Final Output
